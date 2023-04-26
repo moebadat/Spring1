@@ -42,8 +42,8 @@ public class EmployeeController {
 
     //get for one
     @GetMapping(value="/{id}")
-    public Optional  <Employee> findOne(int id){
-        return employeeRepo.findById(id);
+    public Optional  <Employee> findOne(Employee employee){
+        return employeeRepo.findById(employee.getEmpId());
     }
      
     //@RequestBody says to post this data
