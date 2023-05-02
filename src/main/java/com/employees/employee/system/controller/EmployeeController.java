@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.employees.employee.system.models.Employee;
 import com.employees.employee.system.repo.EmployeeRepo;
 
-
+@CrossOrigin(origins = "http://localhost:4200")
 //Specify that this is a REST api
 @RestController
 
@@ -30,19 +32,20 @@ public class EmployeeController {
     private EmployeeRepo employeeRepo;
 
     //get this method
-    @GetMapping
+   
 
     //List because we are getting all the items, call model, name methods
     //<> this means that its iterable 
     //return then use repo to get data from the model
-    public List<Employee> getEmployees(){
+   @GetMapping
+    public List<Employee> getEmployees() {
         return employeeRepo.findAll();
     }
 
 
     //get for one
-    @GetMapping(value="/{id}")
-    public Optional  <Employee> findOne(Employee employee){
+    @GetMapping(value = "/{id}")
+    public Optional<Employee> findOne(Employee employee) {
         return employeeRepo.findById(employee.getEmpId());
     }
      
@@ -52,7 +55,7 @@ public class EmployeeController {
     //@Non null says value cannot be null
     //we pass in employee, the details as a request body and then save that
     @PostMapping
-    public Employee save(@Validated @NonNull @RequestBody Employee employee){
+    public Employee save(@Validated @NonNull @RequestBody Employee employee) {
         return employeeRepo.save(employee);
     }
 
@@ -66,13 +69,14 @@ public class EmployeeController {
     //update using id
     //only return method changes
     //pass id on put mapping, tells it that its an id and relate it with data you have, if its that data it will update it as specified
-    @PutMapping("/{empId}")
-    public Employee update(@Validated @NonNull @RequestBody Employee employee){
+  @PutMapping("/{id}")
+    public Employee update(@Validated @NonNull @RequestBody Employee employee) {
         return employeeRepo.save(employee);
+    }
 
-    @DeleteMapping
-    public Employee delete(){}
-
+     @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable int id) {
+        employeeRepo.deleteById(id);
     }
 
 
