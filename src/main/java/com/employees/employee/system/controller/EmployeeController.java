@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -69,9 +70,17 @@ public class EmployeeController {
     //update using id
     //only return method changes
     //pass id on put mapping, tells it that its an id and relate it with data you have, if its that data it will update it as specified
-  @PutMapping("/{id}")
-    public Employee update(@Validated @NonNull @RequestBody Employee employee) {
-        return employeeRepo.save(employee);
+    @PutMapping("/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable long id,@RequestBody Employee employeeDetails) {
+        Employee updateEmployee = employeeRepo.findById((int) id)
+                .orElseThrow();
+        updateEmployee.setName(employeeDetails.getName());
+        updateEmployee.setSurname(employeeDetails.getSurname());
+        updateEmployee.setEmail(employeeDetails.getEmail());
+        updateEmployee.setContactNo(employeeDetails.getContactNo());
+        updateEmployee.setDepartment(employeeDetails.getDepartment());
+        employeeRepo.save(updateEmployee);
+        return ResponseEntity.ok(updateEmployee);
     }
 
      @DeleteMapping(value = "/{id}")
