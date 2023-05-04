@@ -45,10 +45,10 @@ public class EmployeeController {
 
     //get for one
     @GetMapping(value = "/{id}")
-    public Optional<Employee> findOne(Employee employee) {
-        return employeeRepo.findById(employee.getEmpId());
+    public Optional<Employee> getEmployeeById(@PathVariable("id") int id){
+        return employeeRepo.findById(id);
     }
-     
+      
     //@RequestBody says to post this data
     //specify return type as we are getting something back
     //@Validate makes sure of data being sent
