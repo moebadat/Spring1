@@ -30,12 +30,12 @@ public class Employee {
     private String department;
 
     @Column(name = "contactNo")
-    private String contactNo;
+    private int contactNo;
 
 
     public Employee(){}
 
-    public Employee(int empId,String name, String surname, String email, String department, String contactNo){
+    public Employee(int empId,String name, String surname, String email, String department, int contactNo){
         this.empId=empId;
         this.name=name;
         this.surname=surname;
@@ -85,11 +85,11 @@ public class Employee {
         this.department = department;
     }
 
-    public String getContactNo() {
+    public int getContactNo() {
         return this.contactNo;
     }
 
-    public void setContactNo(String contactNo) {
+    public void setContactNo(int contactNo) {
         this.contactNo = contactNo;
     }
     
