@@ -45,6 +45,7 @@ public class EmployeeController {
 
 
     //get for one
+    //return the record linked to that id to the frontend
     @GetMapping(value = "/{id}")
     public Optional<Employee> getEmployeeById(@PathVariable("id") int id){
         return employeeRepo.findById(id);
@@ -60,16 +61,7 @@ public class EmployeeController {
         return employeeRepo.save(employee);
     }
 
-    //postgres link
-    //spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
-    //spring.datasource.username=postgres
-    //spring.datasource.password=password
-
-
-    //update uses a put
-    //update using id
-    //only return method changes
-    //pass id on put mapping, tells it that its an id and relate it with data you have, if its that data it will update it as specified
+    // updates a record based on id and info obtained 
     @PutMapping("/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable long id,@RequestBody Employee employeeDetails) {
         Employee updateEmployee = employeeRepo.findById((int) id)
@@ -83,6 +75,7 @@ public class EmployeeController {
         return ResponseEntity.ok(updateEmployee);
     }
 
+    //delete
      @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable int id) {
         employeeRepo.deleteById(id);

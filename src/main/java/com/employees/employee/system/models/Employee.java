@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
+// A table mapped to a table in a database with an auto generted id and variables mapped to columns in that table
 @Entity
 @Table(name = "employee")
 public class Employee {
@@ -30,12 +30,12 @@ public class Employee {
     private String department;
 
     @Column(name = "contactNo")
-    private int contactNo;
+    private String contactNo;
 
 
     public Employee(){}
-
-    public Employee(int empId,String name, String surname, String email, String department, int contactNo){
+    //constructor that initializes variables
+    public Employee(int empId,String name, String surname, String email, String department, String contactNo){
         this.empId=empId;
         this.name=name;
         this.surname=surname;
@@ -85,11 +85,11 @@ public class Employee {
         this.department = department;
     }
 
-    public int getContactNo() {
+    public String getContactNo() {
         return this.contactNo;
     }
 
-    public void setContactNo(int contactNo) {
+    public void setContactNo(String contactNo) {
         this.contactNo = contactNo;
     }
     
